@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculadora de agua: cuánta agua beber al día según tu peso y tu entreno | Atlas</title>
+<meta name="description" content="Calcula cuánta agua necesitas beber al día según tu peso, altura, edad, tu día a día y si entrenas. Con la misma fórmula que usa la app Atlas.">
+<link rel="canonical" href="https://alvarodominguez720s-dotcom.github.io/atlas-privacidad/calculadora-agua.html">
+<link rel="icon" href="img/icono-192.png">
+<link rel="stylesheet" href="estilo.css">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Calculadora de agua: cuánta agua beber al día">
+<meta property="og:description" content="Los litros de agua que necesitas al día según tu cuerpo y tu entreno.">
+<meta property="og:image" content="https://alvarodominguez720s-dotcom.github.io/atlas-privacidad/img/destacado-es.jpg">
+<meta property="og:url" content="https://alvarodominguez720s-dotcom.github.io/atlas-privacidad/calculadora-agua.html">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "WebApplication", "name": "Calculadora de agua", "url": "https://alvarodominguez720s-dotcom.github.io/atlas-privacidad/calculadora-agua.html",
+      "applicationCategory": "HealthApplication", "operatingSystem": "Cualquiera (navegador)", "inLanguage": "es", "isAccessibleForFree": true,
+      "description": "Calcula cuánta agua beber al día según tu gasto de energía y los días que entrenas." },
+    { "@type": "FAQPage", "mainEntity": [
+      { "@type": "Question", "name": "¿Cuánta agua hay que beber al día?", "acceptedAnswer": { "@type": "Answer", "text": "Depende de lo que gastas: como referencia, alrededor de 1 ml por cada kcal que gastas al día, de la que unas cuatro quintas partes se beben y el resto llega con la comida. Para la mayoría de adultos sale entre 1,5 y 3 litros, y algo más los días de entreno." } },
+      { "@type": "Question", "name": "¿Cuenta el café, el té o la leche?", "acceptedAnswer": { "@type": "Answer", "text": "Sí: el café, el té, las infusiones o la leche también hidratan. Lo que no conviene es que la mayor parte del líquido sean refrescos o bebidas con azúcar." } },
+      { "@type": "Question", "name": "¿Hay que beber más los días de entreno?", "acceptedAnswer": { "@type": "Answer", "text": "Sí, en torno a medio litro más, y más aún si hace calor o sudas mucho. Bebe durante el día, no todo de golpe." } },
+      { "@type": "Question", "name": "¿Se puede beber demasiada agua?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Beber muchísimo en poco tiempo puede ser peligroso. Esta calculadora pone un tope de 4,5 litros al día; si tienes problemas de riñón o de corazón, pregunta a tu médico cuánto beber." } }
+    ] }
+  ]
+}
+</script>
+<style>
+.calc { background: var(--superficie); border-radius: 24px; padding: 22px; margin: 8px 0 28px; }
+.campos { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 14px 16px; }
+.campo { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.campo > span, .campo legend { font-weight: 600; font-size: .95rem; }
+.campo input, .campo select { font: inherit; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--borde); background: var(--fondo); color: var(--texto); width: 100%; }
+fieldset.campo { border: 0; padding: 0; margin: 0; }
+.opciones { display: flex; flex-wrap: wrap; gap: 8px; }
+.opciones label { flex: 1 1 auto; position: relative; }
+.campo .opciones input { position: absolute; inset: 0; width: 1px; height: 1px; padding: 0; margin: 0; border: 0; opacity: 0; pointer-events: none; }
+.opciones span { display: block; text-align: center; padding: 11px 14px; border-radius: 12px; border: 1px solid var(--borde); background: var(--fondo); cursor: pointer; font-weight: 600; }
+.opciones input:checked + span { background: var(--texto); color: var(--invertido); border-color: var(--texto); }
+.opciones input:focus-visible + span { outline: 2px solid #e8c547; outline-offset: 2px; }
+.boton { display: inline-block; font: inherit; font-weight: 700; padding: 14px 22px; border-radius: 14px; border: 0; background: var(--texto); color: var(--invertido); cursor: pointer; margin-top: 18px; width: 100%; }
+.resultado { margin-top: 22px; border-top: 1px solid var(--borde); padding-top: 20px; }
+.grande { font-size: clamp(2.4rem, 8vw, 3.4rem); font-weight: 800; letter-spacing: -.03em; line-height: 1; }
+.grande small { font-size: 1.1rem; font-weight: 600; color: var(--secundario); letter-spacing: 0; }
+.macros { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 18px 0 8px; }
+.macro { background: var(--fondo); border: 1px solid var(--borde); border-radius: 16px; padding: 14px 10px; text-align: center; }
+.macro b { display: block; font-size: 1.6rem; line-height: 1.1; }
+.macro em { font-style: normal; color: var(--secundario); font-size: .85rem; }
+.aviso { color: var(--secundario); font-size: .92rem; margin: 8px 0 0; }
+.llevalo { margin-top: 20px; background: var(--fondo); border: 1px solid var(--borde); border-radius: 18px; padding: 18px; text-align: center; }
+.llevalo p { margin: 0 0 10px; }
+.buscar { display: inline-flex; align-items: center; gap: 10px; padding: 10px 18px; border-radius: 99px; border: 1px solid var(--borde); font-weight: 700; margin: 4px 0 12px; }
+.miga { font-size: .9rem; color: var(--secundario); margin: 4px 0 0; }
+</style>
+</head>
+<body>
+<div class="ancho">
+  <header class="barra">
+    <a class="marca" href="./"><img src="img/icono-192.png" alt="" width="36" height="36">Atlas</a>
+  </header>
+  <main>
+    <p class="miga"><a href="./">Atlas</a> › Calculadora de agua</p>
+    <h1>Calculadora de agua</h1>
+    <p class="entradilla" style="margin-left:0">Cuánta agua beber al día según tu cuerpo, tu día a día y los días que entrenas. Con la misma fórmula que usa la app Atlas.</p>
+    <form class="calc" id="calc" novalidate>
+      <div class="campos">
+        <fieldset class="campo"><legend>Sexo</legend><div class="opciones">
+          <label><input type="radio" name="sexo" value="hombre" checked><span>Hombre</span></label>
+          <label><input type="radio" name="sexo" value="mujer"><span>Mujer</span></label></div></fieldset>
+        <label class="campo"><span>Edad (años)</span><input type="number" name="edad" inputmode="numeric" min="18" max="100" value="30"></label>
+        <label class="campo"><span>Altura (cm)</span><input type="number" name="altura" inputmode="numeric" min="130" max="230" value="175"></label>
+        <label class="campo"><span>Peso (kg)</span><input type="number" name="peso" inputmode="decimal" min="35" max="250" step="0.1" value="80"></label>
+        <label class="campo"><span>Tu día a día (sin contar el entreno)</span><select name="actividad">
+          <option value="sedentario">Sentado casi todo el día</option><option value="ligero" selected>Algo de movimiento (caminas un rato)</option>
+          <option value="moderado">De pie buena parte del día</option><option value="activo">Trabajo físico</option><option value="muy_activo">Trabajo muy físico</option></select></label>
+        <label class="campo"><span>Días de entreno a la semana</span><select name="dias">
+          <option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option>
+          <option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option></select></label>
+      </div>
+      <button class="boton" type="submit">Calcular</button>
+      <div class="resultado" id="resultado" hidden aria-live="polite">
+        <div class="grande" id="r-litros"></div>
+        <div class="macros" style="grid-template-columns:repeat(2,1fr)">
+          <div class="macro"><b id="r-descanso"></b><em>días de descanso</em></div>
+          <div class="macro"><b id="r-entreno"></b><em>días de entreno</em></div>
+        </div>
+        <p class="aviso" id="r-vasos"></p>
+        <div class="llevalo">
+          <p><b>¿Y ahora qué?</b> En Atlas apuntas cada vaso con un toque y la botella se va llenando. Además te calcula tus calorías, te monta la rutina y lo ajusta cada semana.</p>
+          <div class="buscar" aria-label="Busca Atlas Entrenador IA en Google Play">🔍 Atlas Entrenador IA</div><br>
+          <a class="insignia" href="https://play.google.com/store/apps/details?id=com.alvarodominguez.atlas&amp;referrer=utm_source%3Dweb%26utm_medium%3Dcalculadora-agua"><img src="img/google-play-es.png" alt="Disponible en Google Play" height="56" style="height:56px;width:auto"></a>
+        </div>
+      </div>
+      <p class="aviso" id="error" hidden></p>
+    </form>
+    <section>
+      <h2>Cómo se calcula</h2>
+      <div class="rejilla">
+        <div class="tarjeta"><h3>1. Lo que gastas</h3><p>Se calcula tu gasto de energía diario (Mifflin-St Jeor y tu actividad), igual que en la <a href="calculadora-calorias.html">calculadora de calorías</a>.</p></div>
+        <div class="tarjeta"><h3>2. 1 ml por kcal</h3><p>La referencia es en torno a 1 ml de agua por cada kcal que gastas. Unas cuatro quintas partes se beben y el resto llega con la comida.</p></div>
+        <div class="tarjeta"><h3>3. Los días de entreno</h3><p>Medio litro más. Si hace calor o sudas mucho, algo más.</p></div>
+        <div class="tarjeta"><h3>4. Con límites</h3><p>Nunca menos de 1,5 litros ni más de 4,5 al día.</p></div>
+      </div>
+    </section>
+    <section>
+      <h2>Preguntas frecuentes</h2>
+      <details><summary>¿Cuánta agua hay que beber al día?</summary><p>Depende de lo que gastas: como referencia, alrededor de 1 ml por cada kcal que gastas al día, de la que unas cuatro quintas partes se beben y el resto llega con la comida. Para la mayoría de adultos sale entre 1,5 y 3 litros, y algo más los días de entreno.</p></details>
+      <details><summary>¿Cuenta el café, el té o la leche?</summary><p>Sí: el café, el té, las infusiones o la leche también hidratan. Lo que no conviene es que la mayor parte del líquido sean refrescos o bebidas con azúcar.</p></details>
+      <details><summary>¿Hay que beber más los días de entreno?</summary><p>Sí, en torno a medio litro más, y más aún si hace calor o sudas mucho. Bebe durante el día, no todo de golpe.</p></details>
+      <details><summary>¿Se puede beber demasiada agua?</summary><p>Sí. Beber muchísimo en poco tiempo puede ser peligroso. Esta calculadora pone un tope de 4,5 litros al día; si tienes problemas de riñón o de corazón, pregunta a tu médico cuánto beber.</p></details>
+    </section>
+  </main>
+  <footer>
+    <nav><a href="./">Inicio</a><a href="calculadora-calorias.html">Calculadora de calorías</a><a href="politica-privacidad.html">Política de privacidad</a><a href="mailto:alvarodominguez720s@gmail.com">Contacto</a></nav>
+    <p>Para mayores de 18 años. Las cifras son estimaciones, no un consejo médico: ante cualquier duda sobre tu salud, consulta a tu médico.</p>
+    <p>Google Play y el logotipo de Google Play son marcas de Google LLC.</p>
+  </footer>
+</div>
+<script>
+// Misma fórmula que la app (src/lib/hidratacion.ts), solo para adultos.
+const PAL_BASE = { sedentario: 1.2, ligero: 1.3, moderado: 1.4, activo: 1.5, muy_activo: 1.6 };
+const MINIMO = { hombre: 1500, mujer: 1200 };
+
+function calcular({ sexo, edad, altura, peso, actividad, dias, objetivo }) {
+  const pal = Math.min(1.95, PAL_BASE[actividad] + 0.05 * dias);
+  const reposo = 10 * peso + 6.25 * altura - 5 * edad + (sexo === 'hombre' ? 5 : -161);
+  const mantenimiento = Math.round(reposo * pal);
+  const m = altura / 100;
+  const imc = peso / (m * m);
+  let kcal = mantenimiento;
+  let bajoPeso = false;
+  if (objetivo === 'perder_grasa') {
+    if (imc < 18.5) bajoPeso = true;
+    else kcal = Math.round(mantenimiento * (1 - (imc >= 30 ? 0.25 : imc >= 25 ? 0.2 : 0.15)));
+  } else if (objetivo === 'ganar_musculo') {
+    kcal = Math.round(mantenimiento + (peso * 0.0035 * 7000) / 7);
+  }
+  kcal = Math.max(kcal, MINIMO[sexo], Math.round(reposo));
+  const delta = kcal - mantenimiento;
+  const semana = Math.round(((delta * 7) / (delta < 0 ? 7700 : 7000)) * 100) / 100;
+  const referencia = Math.min(peso, 25 * m * m);
+  const proteina = Math.round(referencia * (objetivo === 'perder_grasa' ? 2.2 : 1.8));
+  let grasas = Math.round(Math.max((kcal * 0.25) / 9, referencia * 0.8));
+  let hidratos = Math.max(0, Math.round((kcal - proteina * 4 - grasas * 9) / 4));
+  const tope = Math.round((kcal * 0.6) / 4);
+  if (hidratos > tope) { grasas += Math.round(((hidratos - tope) * 4) / 9); hidratos = tope; }
+  return { kcal, mantenimiento, proteina, grasas, hidratos, semana, bajoPeso };
+}
+
+
+const a50 = (v) => Math.round(v / 50) * 50;
+function agua(datos) {
+  const base = Math.min(4500, Math.max(1500, a50(calcular({ ...datos, objetivo: 'mantener' }).mantenimiento * 0.8)));
+  return { descanso: base, entreno: Math.min(4500, a50(base + 500)), media: Math.min(4500, a50(base + (500 * datos.dias) / 7)) };
+}
+const litros = (ml) => (ml / 1000).toLocaleString('es-ES', { minimumFractionDigits: 1, maximumFractionDigits: 2 }) + ' L';
+const form = document.getElementById('calc');
+form.addEventListener('submit', (ev) => {
+  ev.preventDefault();
+  const d = new FormData(form);
+  const datos = { sexo: d.get('sexo'), edad: Number(d.get('edad')), altura: Number(d.get('altura')), peso: Number(String(d.get('peso')).replace(',', '.')), actividad: d.get('actividad'), dias: Number(d.get('dias')) };
+  const error = document.getElementById('error'); const res = document.getElementById('resultado');
+  let problema = '';
+  if (!(datos.edad >= 18 && datos.edad <= 100)) problema = 'Esta calculadora es para mayores de 18 años (y hasta 100).';
+  else if (!(datos.altura >= 130 && datos.altura <= 230)) problema = 'Pon tu altura en centímetros (entre 130 y 230).';
+  else if (!(datos.peso >= 35 && datos.peso <= 250)) problema = 'Pon tu peso en kilos (entre 35 y 250).';
+  error.hidden = !problema; error.textContent = problema;
+  if (problema) { res.hidden = true; return; }
+  const r = agua(datos);
+  document.getElementById('r-litros').innerHTML = `${litros(r.media)} <small>al día de media</small>`;
+  document.getElementById('r-descanso').textContent = litros(r.descanso);
+  document.getElementById('r-entreno').textContent = datos.dias ? litros(r.entreno) : '—';
+  document.getElementById('r-vasos').textContent = `Unos ${Math.round(r.media / 250)} vasos de 250 ml al día, repartidos. El café, el té y la leche también cuentan.`;
+  res.hidden = false; res.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+</script>
+</body>
+</html>
